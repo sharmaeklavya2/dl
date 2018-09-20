@@ -1,0 +1,53 @@
+digraph "web-of-reductions" {
+    rankdir=LR
+    node [fontname="courier"]
+    "circuit-sat"
+    "cnf-sat"
+    "3-sat"
+    "indset"
+    "vertex-cover"
+    "clique"
+    "set-cover"
+    "ham-cycle"
+    "tsp"
+    "subset-sum"
+    "ilp"
+    "partition"
+    "best-partition"
+    "ham-path"
+    "knapsack"
+    "3-color"
+    "d-ham-path"
+    "d-ham-cycle"
+    "makespan"
+    "bin-packing"
+    "max-cut"
+    "cnf-sat" -> "circuit-sat" [label="[1]" href="#edge.1"]
+    "circuit-sat" -> "cnf-sat" [label="[2]" href="#edge.2"]
+    "cnf-sat" -> "indset" [label="[3]" href="#edge.3"]
+    "3-sat" -> "cnf-sat" [label="[4]" href="#edge.4"]
+    "cnf-sat" -> "3-sat" [label="[5]" href="#edge.5"]
+    "indset" -> "vertex-cover" [label="[6]" href="#edge.6" dir=both]
+    "indset" -> "clique" [label="[7]" href="#edge.7" dir=both]
+    "vertex-cover" -> "set-cover" [label="[8]" href="#edge.8"]
+    "ham-cycle" -> "tsp" [label="[9]" href="#edge.9"]
+    "3-sat" -> "subset-sum" [label="[10]" href="#edge.10"]
+    "set-cover" -> "ilp" [label="[11]" href="#edge.11"]
+    "subset-sum" -> "partition" [label="[12]" href="#edge.12"]
+    "ham-cycle" -> "ham-path" [label="[13]" href="#edge.13"]
+    "subset-sum" -> "knapsack" [label="[14]" href="#edge.14"]
+    "partition" -> "subset-sum" [label="[15]" href="#edge.15"]
+    "knapsack" -> "ilp" [label="[16]" href="#edge.16"]
+    "cnf-sat" -> "ilp" [label="[17]" href="#edge.17"]
+    "vertex-cover" -> "ham-cycle" [label="[18]" href="#edge.18"]
+    "3-sat" -> "3-color" [label="[19]" href="#edge.19"]
+    "3-sat" -> "d-ham-path" [label="[20]" href="#edge.20"]
+    "3-sat" -> "d-ham-cycle" [label="[21]" href="#edge.21"]
+    "partition" -> "makespan" [label="[22]" href="#edge.22"]
+    "partition" -> "bin-packing" [label="[23]" href="#edge.23"]
+    "d-ham-cycle" -> "ham-cycle" [label="[24]" href="#edge.24"]
+    "ham-cycle" -> "d-ham-cycle" [label="[25]" href="#edge.25"]
+    "best-partition" -> "partition" [label="[26]" href="#edge.26"]
+    "partition" -> "best-partition" [label="[27]" href="#edge.27"]
+    "indset" -> "max-cut" [label="[28]" href="#edge.28"]
+}

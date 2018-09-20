@@ -1,0 +1,40 @@
+<svg width="800" height="400"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <style type="text/css">
+            *{stroke:black; fill:none}
+            text,tspan {fill: black; font-size: 25px;}
+        </style>
+        <g id="arrow">
+            <line x1="-40" y1="0" x2="40" y2="0" />
+            <polyline points="30,-10 40,0 30,10" />
+        </g>
+        <g id="packet" viewBox="-70 0 70 200">
+            <rect x="-70" y="0" width="140" height="200" />
+            <line x1="-70" y1="50" x2="70" y2="50" />
+        </g>
+        <g id="small_packet" viewBox="-65 0 65 140">
+            <rect x="-65" y="0" width="130" height="140" />
+            <line x1="-65" y1="50" x2="65" y2="50" />
+        </g>
+    </defs>
+
+    <text x="100" y="300" text-anchor="middle">Internet<tspan x="100" y="330">Host</tspan></text>
+    <text x="300" y="300" text-anchor="middle">Barrier<tspan x="300" y="330">Router</tspan></text>
+    <text x="500" y="300" text-anchor="middle">Victim<tspan x="500" y="330">Border</tspan></text>
+    <text x="700" y="300" text-anchor="middle">Victim<tspan x="700" y="330">Host</tspan></text>
+
+    <use href="#arrow" x="200" y="300" />
+    <use href="#arrow" x="400" y="300" />
+    <use href="#arrow" x="600" y="300" />
+
+    <use href="#packet" x="200" y="50" />
+    <use href="#packet" x="400" y="50" />
+    <use href="#small_packet" x="400" y="105" />
+    <use href="#packet" x="600" y="50" />
+
+    <text x="200" y="85" text-anchor="middle">X to P</text>
+    <text x="400" y="85" text-anchor="middle">P to S</text>
+    <text x="400" y="140" text-anchor="middle">X to P</text>
+    <text x="600" y="85" text-anchor="middle">X to S</text>
+</svg>

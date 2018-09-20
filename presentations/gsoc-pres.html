@@ -1,0 +1,946 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>GSoC</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="gsoc-2017">GSoC 2017</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="about-me">About me</h3>
+<ul>
+<li>I&#39;m Eklavya Sharma, a 3<sup>rd</sup> year CS student at BITS.</li>
+<li>I participated in GSoC 2016 under Zulip.</li>
+<li>You can find me on github: <a href="https://github.com/sharmaeklavya2">https://github.com/sharmaeklavya2</a></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="what-is-gsoc-">What is GSoC?</h3>
+<ul>
+<li>Google Summer of Code (GSoC) is annual program in which Google pays university students
+to do a coding project for an open-source organization during the summer.</li>
+<li>The organizations provide mentors who guide students through the entire process.</li>
+<li><a href="https://summerofcode.withgoogle.com">https://summerofcode.withgoogle.com</a></li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="presentation-summary">Presentation summary</h3>
+<ul>
+<li>More about the GSoC process.</li>
+<li>Should you participate?</li>
+<li>How to choose an organization?</li>
+<li>How to contact an organization?</li>
+<li>How to increase chances of getting accepted?</li>
+<li>Software development tips</li>
+<li>BITS-specific issues</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h1 id="gsoc-process">GSoC process</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="february-27-mentoring-open-source-organizations-announced">February 27 - Mentoring open-source organizations announced</h3>
+<ul>
+<li>Last year around 180 organizations were accepted.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="students-talk-to-organizations">Students talk to organizations</h3>
+<ul>
+<li>Students talk to organizations and ask them for a coding project.</li>
+<li>Organizations have a list of projects which they want done.</li>
+<li>Sometimes students can also suggest projects.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="students-prove-themselves">Students prove themselves</h3>
+<ul>
+<li>Students make small contributions to the organization to prove that they
+are skilled enough to do the project.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="students-write-applications">Students write applications</h3>
+<ul>
+<li>Students write an application about the project they wish to work on,
+a rough plan of how they will complete the project, etc.</li>
+<li>Students have to submit their applications to google between March 20 and April 3.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="organizations-select-students">Organizations select students</h3>
+<ul>
+<li>Organizations select the best students among those who applied.</li>
+<li>Selection rate is low:<ul>
+<li>19000 students registered on Google for GSoC.</li>
+<li>7500 students submitted applications.</li>
+<li>1200 students were accepted.</li>
+</ul>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="gsoc-begins">GSoC begins</h3>
+<ul>
+<li>Accepted students begin working on their projects from May 4 onwards.</li>
+<li>Mentors help students work on their projects.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="gsoc-timeline-summary">GSoC timeline summary</h3>
+<ul>
+<li>Feb 27    - Mentoring organizations announced</li>
+<li>March 20  - Student application period opens</li>
+<li>April 3   - Student application deadline</li>
+<li>May 4     - Accepted students announced</li>
+<li>May 30    - GSoC begins</li>
+<li>August 29 - GSoC ends</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h1 id="should-you-participate-">Should you participate?</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="you-should-participate-in-gsoc-if-">You should participate in GSoC if:</h3>
+<ul>
+<li>You like coding and you are good at it (whatever language).</li>
+<li>You like learning new things.</li>
+<li>You want to do something real.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="advantages-of-participating-in-gsoc-">Advantages of participating in GSoC:</h3>
+<ul>
+<li>You get to learn things you would otherwise not be able to learn.</li>
+<li>Getting accepted for GSoC is proof of your ability, and it can be a shining point on your resume.</li>
+<li>You get to meet and work with great people.</li>
+<li>The ca$h ($2400 = Rs.1,64,000) and a t-shirt.</li>
+<li>You can brag about it!</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="disadvantages-of-participating-in-gsoc-">Disadvantages of participating in GSoC:</h3>
+<ul>
+<li>You&#39;ll spend 3 months during GSoC and at least 2 months preparing for GSoC.
+This might not be the best use of your time if software development isn&#39;t your primary interest.</li>
+<li>It can affect your grades. I missed many classes to work for my organization.</li>
+<li>It&#39;s disheartening to not get accepted.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="participating-next-year">Participating next year</h3>
+<p>You can participate in GSoC next year and use this year for training and
+familiarizing yourself with GSoC application process.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h1 id="how-to-choose-an-organization-">How to choose an organization?</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="your-interest-and-familiarity-with-the-software">Your interest and familiarity with the software</h3>
+<ul>
+<li>Working on a scuba-diver monitoring program can be difficult
+if you don&#39;t know much about scuba-diving.</li>
+<li>Working on a software library can be difficult if you have never used that library.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="skills">Skills</h3>
+<ul>
+<li>It&#39;ll be good if you know the programming language used for a project, but that might not be a requirement.</li>
+<li>You&#39;ll generally need to know the required technologies, especially if it&#39;s a popular technology.</li>
+<li>For e.g., If you have to make an android app as part of your project,
+you will probably be expected to already know how to build android apps.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="competition">Competition</h3>
+<ul>
+<li>Very popular organizations (like Mozilla) have a lot of competition.
+Extremely skilled students participate in them.</li>
+<li>New organizations (those which have never taken part in GSoC before) have less competition
+but accept less students.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="responsiveness">Responsiveness</h3>
+<ul>
+<li>Some organizations are very responsive.
+You&#39;ll find their forums brimming with activity.</li>
+<li>Some organizations are very beginner-friendly.</li>
+<li>Organizations which don&#39;t seem interested in mentoring should be avoided
+(though that&#39;s often difficult to detect).</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="keeping-in-touch-with-multiple-organizations">Keeping in touch with multiple organizations</h3>
+<ul>
+<li>Contacting multiple organizations protects against unresponsive organizations and too much competition in some organizations.</li>
+<li>An organization you contact early might not get accepted for GSoC.</li>
+<li>Most people try 1, 2 or 3 organizations.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><h1 id="how-to-contact-an-organization-">How to contact an organization?</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="know-your-organization">Know your organization</h3>
+<ul>
+<li>Before contacting a person in the organization, make sure you know about the organization.</li>
+<li>You should visit the organization&#39;s website (if any) and read about the programs its developers work on.</li>
+<li>Introducing yourself is useful only if done at the right time.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="forum">Forum</h3>
+<ul>
+<li>Organizations often have a forum, mailing list or chatroom where they discuss their software.</li>
+<li>Often developers ask for help there when they&#39;re stuck.</li>
+<li>Developers also discuss strategy, progress and new ideas for their program.</li>
+<li>Lurking on this forum can give you an idea of what&#39;s going on now.</li>
+<li>It also tells you how active an organization is.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="repository">Repository</h3>
+<ul>
+<li>An organization&#39;s code repository often contains a readme and contribution guide.
+Read them before contacting a developer in the organization.</li>
+<li>Readme often tells you how to build the program from source code and run it.
+It&#39;s important to try that out yourself before contacting a developer in the organization.</li>
+<li>Most organizations use github to store their code repository.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-28">
+    <section class="slide-content"><h3 id="bug-tracker">Bug tracker</h3>
+<ul>
+<li>Most organizations use a web application where developers (and sometimes even normal users)
+can report bugs and features. Such an application is called a bug tracker.</li>
+<li>This is where most of the action happens.</li>
+<li>Each bug or feature request has a separate discussion thread.
+Here developers discuss how to fix the bug or implement the feature.</li>
+<li>Most organizations use the bug tracker that comes with github.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-29">
+    <section class="slide-content"><h3 id="bug-tracker-2-">Bug tracker (2)</h3>
+<ul>
+<li>Most organizations classify bugs by their difficulty.</li>
+<li>If you want to fix an easy bug but don&#39;t know how to begin, you can ask on the bug tracker.</li>
+<li>Avoid telling too much about yourself on the bug tracker. Just talk about the bug.
+For introducing yourself, you can use the mailing list or forum instead.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-30">
+    <section class="slide-content"><h3 id="avoiding-communication-delay">Avoiding communication delay</h3>
+<ul>
+<li>Discussions on forums, bug trackers, mailing lists, etc. can speed up by a huge factor if done in realtime.</li>
+<li>This is especially important if developers in your organization live in a very different timezone.</li>
+<li>Most forums, bug trackers, etc. support e-mail notifications or mobile-app notifications. Use them!</li>
+<li>Email isn&#39;t supposed to be checked. Email should inform you when it arrives.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-31">
+    <section class="slide-content"><h1 id="how-to-get-accepted-">How to get accepted?</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-32">
+    <section class="slide-content"><h3 id="the-harsh-reality">The harsh reality</h3>
+<ul>
+<li>You generally need to know almost exactly how to do the project before you write your application.</li>
+<li>To prove your ability (and gain ability if you don&#39;t have it), you&#39;ll have to make many contributions
+to your organization (because others will try to do the same).</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-33">
+    <section class="slide-content"><h3 id="start-early">Start early</h3>
+<ul>
+<li>The earlier you start, the more time you&#39;ll have to learn required skills and make enough contributions.</li>
+<li>Generally people start contacting organizations even before organizations are announced.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h3 id="prepare-well">Prepare well</h3>
+<ul>
+<li><p>General skills: For e.g., programming, version control, command-line, markdown,
+makefiles and developer general knowlege.</p>
+</li>
+<li><p>Specific skills: For e.g., programming language, web dev, android dev, desktop app dev,
+networking, computer graphics, distributed computing.</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="general-preparation">General preparation</h3>
+<ul>
+<li><strong>Version control</strong>: Most organizations use git and expect you to know it well.
+<a href="http://www.git-tower.com/learn/ebook/command-line/introduction">http://www.git-tower.com/learn/ebook/command-line/introduction</a></li>
+<li><strong>Linux</strong>: Since most projects use linux, you should be familiar with it.</li>
+<li><strong>Command-line</strong>: You should at least know basic command invocation and IO redirection.
+<a href="http://linuxcommand.org/lc3_learning_the_shell.php">http://linuxcommand.org/lc3_learning_the_shell.php</a></li>
+<li><strong>Automated Testing</strong>: This is widely used. Learn it and try it out once so that
+you understand the terminology and know the basics.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-36">
+    <section class="slide-content"><h3 id="introduce-yourself-well">Introduce yourself well</h3>
+<ul>
+<li>Most organizations have a ritual where every student who wants to apply for GSoC
+has to introduce himself/herself on the mailing list or forum.</li>
+<li>Most students also ask for further direction when they introduce themselves.</li>
+<li>You must introduce yourself at the right time.</li>
+<li>You must introduce youself in the right way to have the most impact.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-37">
+    <section class="slide-content"><h3 id="introduce-yourself-well-2-">Introduce yourself well (2)</h3>
+<ul>
+<li>Tell about all your relevant skills and your interests.</li>
+<li>Tell about your past projects (if any).</li>
+<li>Your introduction should not be too small to not give enough information about yourself.</li>
+<li>Your introduction should not be so big that the mentor doesn&#39;t bother reading it.</li>
+<li>If you don&#39;t have much space, include links. But keep in mind that the mentor might not visit them.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-38">
+    <section class="slide-content"><h3 id="communication-etiquette">Communication etiquette</h3>
+<ul>
+<li>Never ask to ask.</li>
+<li>Ask specific questions, give all details and search the docs, bug tracker and internet before asking.</li>
+<li>Before opening a new issue, search for the issue in the bug tracker.</li>
+<li>Do as the mentor says. Don&#39;t irritate the mentor.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-39">
+    <section class="slide-content"><h3 id="coding-ettiquette">Coding ettiquette</h3>
+<ul>
+<li>Be aware of the organization&#39;s whitespace policy.
+If you use tabs instead of spaces or vice-versa, you&#39;ll be asked to fix the whitespace.</li>
+<li>Avoid trailing whitespace (unless absolutely neccessary).</li>
+<li>Only modify code which needs to be modified, so that analyzing your diff is easier.</li>
+<li>Write clear and descriptive commit messages and commit at right granularity.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-40">
+    <section class="slide-content"><h1 id="software-development-tips">Software development tips</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-41">
+    <section class="slide-content"><h3 id="learning-to-work-with-others">Learning to work with others</h3>
+<ul>
+<li>Most of us are used to working on projects we wrote ourselves.</li>
+<li>To contribute to open-source, we must know how to work on others&#39; projects.</li>
+<li>Version-control is important for teamwork.</li>
+<li>Try sending a pull request to your friends to get an idea of the process.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-42">
+    <section class="slide-content"><h3 id="working-on-big-software">Working on big software</h3>
+<ul>
+<li>You don&#39;t need to know everything about the program.</li>
+<li>You should know what the application does from user perspective.
+Run it and explore its features.</li>
+<li>You should know what&#39;s the high level design of the program.</li>
+<li>You only need to know the details of the part you are interested in working in.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-43">
+    <section class="slide-content"><h3 id="searching-in-big-software">Searching in big software</h3>
+<ul>
+<li><code>grep</code> was helpful. Knowlege of regular expressions was sometimes helpful.</li>
+<li>Use a text editor which helps in fast searching and navigation.</li>
+<li>In an IDE, a class explorer might be helpful.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-44">
+    <section class="slide-content"><h1 id="bits-specific-issues">BITS-specific issues</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-45">
+    <section class="slide-content"><h3 id="ps1-clash">PS1 clash</h3>
+<ul>
+<li>It is not hard to do PS1 with GSoC. Many people have done it before.</li>
+<li>I avoided PS stations which are known for giving relatively more work.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-46">
+    <section class="slide-content"><h3 id="sem-1-clash">Sem 1 clash</h3>
+<ul>
+<li>Your summer vacations will end before GSoC ends.</li>
+<li>It&#39;s important to tell your organization about this.</li>
+<li>Try to almost finish your project during vacations.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-47">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Eklavya Sharma</h1>
+    <h3 class="email">
+      <a href="mailto:f2014130@pilani.bits-pilani.ac.in">f2014130@pilani.bits-pilani.ac.in</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
