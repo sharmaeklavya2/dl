@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+width="640" height="480" viewBox="0 0 640 480">
+<style>
+.node {stroke: black; stroke-width: 2px; fill: none; visibility: hidden;}
+.item {stroke: hsl(220,50%,35%); stroke-width: 2px; fill: hsl(220,50%,70%);}
+.cut-line {stroke: hsl(0,90%,40%); stroke-width: 4px; visibility: hidden;}
+#v {transform: translate(10px, 10px);}
+/*
+@media (prefers-color-scheme: dark) {
+svg {background: hsl(0,0%,12%);}
+.node {stroke: hsl(0,0%,50%);}
+.item {stroke: hsl(220,50%,50%); fill: hsl(220,50%,25%);}
+}
+*/
+</style>
+<style>
+svg {
+    --start: 0s;
+    --play-state: running;
+    --duration: 8s;
+}
+.cut-line, #v1, #v01, #v11, #v001, #v002, #v011, #v101, .node {
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    animation-play-state: var(--play-state);
+}
+
+.cut-line {
+    animation-name: cut-line-appear;
+}
+#v > .cut-line {
+    animation-delay: calc(1s - var(--start));
+}
+#v0 > .cut-line, #v1 > .cut-line {
+    animation-delay: calc(3s - var(--start));
+}
+#v00 > .cut-line, #v01 > .cut-line, #v10 > .cut-line {
+    animation-delay: calc(5s - var(--start));
+}
+@keyframes cut-line-appear {
+    0% {visibility: visible;}
+    12.5% {visibility: hidden;}
+}
+
+#v > .node {
+    animation-name: v-show;
+    animation-delay: calc(0s - var(--start));
+}
+@keyframes v-show {
+    0% {visibility: visible;}
+    24.99% {visibility: visible;}
+    25% {visibility: hidden;}
+    93.74% {visibility: hidden;}
+    93.75% {visibility: visible;}
+    99.99% {visibility: visible;}
+}
+#v0 > .node, #v1 > .node {
+    animation-name: v0-show;
+    animation-delay: calc(0s - var(--start));
+}
+@keyframes v0-show {
+    0% {visibility: hidden;}
+    25% {visibility: hidden;}
+    25.01% {visibility: visible;}
+    49.99% {visibility: visible;}
+    50% {visibility: hidden;}
+    99.99% {visibility: hidden;}
+}
+#v00 > .node, #v01 > .node, #v10 > .node, #v11 > .node {
+    animation-name: v00-show;
+    animation-delay: calc(0s - var(--start));
+}
+@keyframes v00-show {
+    0% {visibility: hidden;}
+    50% {visibility: hidden;}
+    50.01% {visibility: visible;}
+    74.99% {visibility: visible;}
+    75% {visibility: hidden;}
+    99.99% {visibility: hidden;}
+}
+#v000 > .node, #v001 > .node, #v002 > .node, #v010 > .node, #v011 > .node, #v100 > .node, #v101 > .node {
+    animation-name: v000-show;
+    animation-delay: calc(0s - var(--start));
+}
+@keyframes v000-show {
+    0% {visibility: hidden;}
+    75% {visibility: hidden;}
+    75.01% {visibility: visible;}
+    93.74% {visibility: visible;}
+    93.75% {visibility: hidden;}
+    99.99% {visibility: hidden;}
+}
+
+
+#v1 {
+    animation-name: v1-move;
+    animation-delay: calc(0s - var(--start));
+}
+@keyframes v1-move {
+    25% {transform: translateX(0px);}
+    31.25% {transform: translateX(150px);}
+    93.75% {transform: translateX(150px);}
+}
+#v01, #v11 {
+    animation-name: v01-move;
+    animation-delay: calc(0s - var(--start));
+}
+@keyframes v01-move {
+    50% {transform: translateY(0px);}
+    56.25% {transform: translateY(50px);}
+    93.75% {transform: translateY(50px);}
+}
+#v001, #v011, #v101 {
+    animation-name: v001-move;
+    animation-delay: calc(0s - var(--start));
+}
+#v002 {
+    animation-name: v002-move;
+    animation-delay: calc(0s - var(--start));
+}
+@keyframes v001-move {
+    75% {transform: translateX(0px);}
+    81.25% {transform: translateX(50px);}
+    93.75% {transform: translateX(50px);}
+}
+@keyframes v002-move {
+    75% {transform: translateX(0px);}
+    81.25% {transform: translateX(100px);}
+    93.75% {transform: translateX(100px);}
+}
+</style>
+<g id="v">
+    <rect class="node" x="0" y="0" width="400" height="400"/>
+    <g id="v0">
+        <rect class="node" x="0" y="0" width="240" height="400"/>
+        <g id="v00">
+            <rect class="node" x="0" y="0" width="240" height="240"/>
+            <g id="v000">
+                <rect class="node" x="0" y="0" width="80" height="240"/>
+                <rect class="item" x="0" y="0" width="80" height="240"/>
+            </g>
+            <g id="v001">
+                <rect class="node" x="80" y="0" width="60" height="240"/>
+                <rect class="item" x="80" y="0" width="60" height="240"/>
+            </g>
+            <g id="v002">
+                <rect class="node" x="140" y="0" width="100" height="240"/>
+                <rect class="item" x="140" y="0" width="80" height="200"/>
+            </g>
+            <line class="cut-line" x1="80" y1="-10" x2="80" y2="250"/>
+            <line class="cut-line" x1="140" y1="-10" x2="140" y2="250"/>
+        </g>
+        <g id="v01">
+            <rect class="node" x="0" y="240" width="240" height="160"/>
+            <g id="v010">
+                <rect class="node" x="0" y="240" width="110" height="160"/>
+                <rect class="item" x="0" y="240" width="110" height="160"/>
+            </g>
+            <g id="v011">
+                <rect class="node" x="110" y="240" width="130" height="160"/>
+                <rect class="item" x="110" y="240" width="130" height="140"/>
+            </g>
+            <line class="cut-line" x1="110" y1="230" x2="110" y2="410"/>
+        </g>
+        <line class="cut-line" x1="-10" y1="240" x2="250" y2="240"/>
+    </g>
+    <g id="v1">
+        <rect class="node" x="240" y="0" width="160" height="400"/>
+        <g id="v10">
+            <rect class="node" x="240" y="0" width="160" height="320"/>
+            <g id="v100">
+                <rect class="node" x="240" y="0" width="80" height="320"/>
+                <rect class="item" x="240" y="0" width="80" height="280"/>
+            </g>
+            <g id="v101">
+                <rect class="node" x="320" y="0" width="80" height="320"/>
+                <rect class="item" x="320" y="0" width="80" height="320"/>
+            </g>
+            <line class="cut-line" x1="320" y1="-10" x2="320" y2="330"/>
+        </g>
+        <g id="v11">
+            <rect class="node" x="240" y="320" width="160" height="80"/>
+            <rect class="item" x="240" y="320" width="160" height="60"/>
+        </g>
+        <line class="cut-line" x1="230" y1="320" x2="410" y2="320"/>
+    </g>
+    <line class="cut-line" x1="240" y1="-10" x2="240" y2="410"/>
+</g>
+</svg>
