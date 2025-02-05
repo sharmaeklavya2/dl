@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+
+<style>
+/* color scheme */
+body {
+    --bg-color: white; --text-color: #202020; --text-secondary: #888; --emph-color: #101010;
+    --link-color: #1a0dab; --vlink-color: #681da8; --ltintC: rgba(0,0,0,0.03);
+    --text-danger: #dc3545; --text-warning: #ffc107; --text-success: #198754;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        --bg-color: #1b1e20; --text-color: #c8c8c8; --emph-color: #e4e4e4;
+        --link-color: #8ab4f8; --vlink-color: #c58af9; --ltintC: rgba(255,255,255,0.03);
+        --text-danger: #e74c3c; --text-warning: #f39c12; --text-success: #00bc8c;
+    }
+    img {filter: brightness(.8) contrast(1.2);}
+}
+
+/* basic */
+body {
+    font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, 'Open Sans', sans-serif;
+    margin: 0; padding: 0 2.5em; line-height: 1.5; font-size: 1.1em;
+    color: var(--text-color); background-color: var(--bg-color);
+}
+a:not(:hover) {text-decoration: none;}
+a {color: var(--link-color);}
+a:visited {color: var(--vlink-color);}
+@media (max-width: 820px) {
+    body {padding: 0 1em;}
+    ol, ul {padding-left: 1.2em;}
+}
+table {border-collapse: collapse;}
+td, th {border: 1px solid var(--text-secondary); padding: 0.1rem 0.5rem;}
+pre > code {display: block; padding: 0.8em;}
+pre > code, code {background-color: var(--ltintC);}
+
+/* extra */
+h1, h2, h3, h4, h5, h6 {line-height: initial; color: var(--emph-color);}
+strong, em {color: var(--emph-color);}
+.danger {color: var(--text-danger);}
+.warning {color: var(--text-warning);}
+.success {color: var(--text-success);}
+
+/* numbered headings */
+body {counter-reset: section;}
+body h2 {counter-reset: subsection;}
+body h2::before {
+    counter-increment: section;
+    content: counter(section) ". ";
+}
+body h3::before {
+    counter-increment: subsection;
+    content: counter(section) "." counter(subsection) ". ";
+}
+body h2::before, body h3::before {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+<h1>Week 3: Introduction to Python</h1>
+<p>This lab is to teach you the basics of Python.</p>
+<p>For data analysis, we need to do a lot of calculations.
+Handheld calculators are not good enough for this job.
+In this course, you'll learn how to use your computer as a much more advanced calculator.</p>
+<p>To communicate with computers, we need a language that both humans and computers can understand.
+Python is one such language. We will write instructions in Python, called <em>code</em> or <em>program</em>,
+and the computer will run this code, i.e., carry out these instructions.</p>
+<h2>Installation</h2>
+<p>You need to install a few things to have your computer understand your Python code.
+There are two ways to do this.</p>
+<ol>
+<li>Automatic: Install <em>Anaconda</em> (<a href="https://www.anaconda.com/download/">https://www.anaconda.com/download/</a>).
+    Anaconda is a python distribution (interpreter + packages + other useful programs).</li>
+<li>Manual: Install a Python interpreter (multiple installation methods available, depending on your OS).
+    Then install each package manually.</li>
+</ol>
+<p>The automatic method is better for data scientists.</p>
+<p>There are two ways to run python code:
+<em>in an interactive shell</em> and <em>as a script</em>.
+We will look at scripts later. Let's first start with the interactive shell.
+The interactive shell is good for exploring python.</p>
+<p>To start the interactive shell, run <code>python3</code> on Linux/macOS and <code>py</code> or <code>py3</code> on windows.
+You will be greeted with a message like this:</p>
+<pre><code>Python 3.11.7 (main, Dec  4 2023, 18:10:11) [Clang 15.0.0 (clang-1500.1.0.2.5)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;
+</code></pre>
+<!--If you don't have an interpreter installed, you can open this URL:
+<https://www.pythonanywhere.com/try-ipython/console_frame/>.
+This website runs python on its server and allows you to interact with it.
+This way has its limitations, which make it unsuitable for subsequent lab sessions, but it works for today.
+I'm telling you about it so that you can follow along in today's class
+without having to first install an interpreter.
+-->
+
+<h2>Operators and Simple Objects</h2>
+<p>You can use python as a calculator.</p>
+<pre><code>&gt;&gt;&gt; 2 + 3 * 4
+14
+&gt;&gt;&gt; (2 + 3) * 4
+20
+&gt;&gt;&gt; 3 ** 3 / 3
+9.0
+</code></pre>
+<p>Arithmetic operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>**</code>.</p>
+<p>Numbers are not the only things in Python.
+Python has other types of objects too, like booleans.</p>
+<pre><code>&gt;&gt;&gt; 8 &gt; 9
+False
+&gt;&gt;&gt; 2 * 4 == 8
+True
+</code></pre>
+<p>Relational/comparison operators: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code>.</p>
+<pre><code>&gt;&gt;&gt; 2 * 4 == 8 or 2 * 4 == 9
+True
+&gt;&gt;&gt; True or False
+False
+&gt;&gt;&gt; not True
+False
+</code></pre>
+<p>Strings are sequences of characters.</p>
+<pre><code>&gt;&gt;&gt; 'abc' + 'xyz'
+'abcxyz'
+&gt;&gt;&gt; &quot;hello &quot; * 3 + &quot;bye&quot;
+'hello hello hello bye'
+&gt;&gt;&gt; len(&quot;Hello! Bye!&quot;)
+11
+</code></pre>
+<p>Errors:</p>
+<pre><code>&gt;&gt;&gt; 3 / 0
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ZeroDivisionError: division by zero
+&gt;&gt;&gt; 3 * * 3
+  File &quot;&lt;stdin&gt;&quot;, line 1
+    3 * * 3
+        ^
+SyntaxError: invalid syntax
+</code></pre>
+<h2>Variables</h2>
+<p>Variables help us name objects so that we can use them again later.</p>
+<pre><code>&gt;&gt;&gt; x = 123456789
+&gt;&gt;&gt; x
+123456789
+&gt;&gt;&gt; x * 8
+987654312
+&gt;&gt;&gt; x = 2 + 3
+&gt;&gt;&gt; x**2 + 2*x + 1
+36
+&gt;&gt;&gt; x = x + 2
+&gt;&gt;&gt; x
+7
+</code></pre>
+<p>Note how we made <code>x</code> change the object it referred to: from <code>123456789</code> to <code>5</code>.</p>
+<p>Finding the type of an object:</p>
+<pre><code>&gt;&gt;&gt; type(x)
+&lt;class 'int'&gt;
+&gt;&gt;&gt; type('hello')
+&lt;class 'str'&gt;
+</code></pre>
+<p><code>x -= 1</code> is the same as <code>x = x - 1</code>. We also have <code>+=</code>, <code>*=</code>, <code>/=</code>.</p>
+<p>If you want a variable <code>x</code> to not refer to any object, write <code>x = None</code>.</p>
+<h2>Containers</h2>
+<p>Container objects are used to store multiple objects together.
+There are many types of containers in Python.
+We will look at <code>list</code>s, <code>tuple</code>s, and <code>dict</code>s.</p>
+<h3>list</h3>
+<pre><code>&gt;&gt;&gt; x = [30, 20, 10]
+&gt;&gt;&gt; type(x)
+&lt;class 'list'&gt;
+&gt;&gt;&gt; x[0]
+30
+&gt;&gt;&gt; x[2]
+10
+&gt;&gt;&gt; x[-1]
+10
+&gt;&gt;&gt; x[-2]
+20
+</code></pre>
+<pre><code>&gt;&gt;&gt; len(x)
+3
+&gt;&gt;&gt; sum(x)
+60
+&gt;&gt;&gt; 20 in x
+True
+&gt;&gt;&gt; sorted(x)
+[10, 20, 30]
+&gt;&gt;&gt; a, b, c = x
+&gt;&gt;&gt; a
+30
+&gt;&gt;&gt; b
+20
+</code></pre>
+<p>Lists are mutable, i.e., they can be modified.</p>
+<pre><code>&gt;&gt;&gt; x[0] = 'hello'
+&gt;&gt;&gt; x
+['hello', 20, 30]
+&gt;&gt;&gt; x.append(100)
+&gt;&gt;&gt; x
+['hello', 20, 30, 100]
+&gt;&gt;&gt; x.pop()
+100
+&gt;&gt;&gt; y = x.pop()
+&gt;&gt;&gt; y
+30
+&gt;&gt;&gt; x
+['hello', 20]
+</code></pre>
+<p>Multiple variables can refer to the same object.</p>
+<pre><code>&gt;&gt;&gt; x = [100, 200, 300]
+&gt;&gt;&gt; y = [100, 200, 300]
+&gt;&gt;&gt; z = x
+&gt;&gt;&gt; x == y
+True
+&gt;&gt;&gt; x is y
+False
+&gt;&gt;&gt; x is z
+True
+&gt;&gt;&gt; x[0] = 'hello'
+&gt;&gt;&gt; x
+['hello', 200, 300]
+&gt;&gt;&gt; y
+[100, 200, 300]
+&gt;&gt;&gt; z
+['hello', 200, 300]
+&gt;&gt;&gt; z[1] = 'bye'
+&gt;&gt;&gt; x
+['hello', 'bye', 300]
+</code></pre>
+<p>Lists can be nested.</p>
+<pre><code>&gt;&gt;&gt; a = [[1, 2, 3], ['hello', 'bye'], [], 5]
+</code></pre>
+<h3>tuple</h3>
+<p>They are like lists, except that they are immutable.</p>
+<pre><code>&gt;&gt;&gt; x = (10, 20, 30)
+&gt;&gt;&gt; type(x)
+&lt;class 'tuple'&gt;
+&gt;&gt;&gt; x[0]
+10
+&gt;&gt;&gt; x[0] = 100
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: 'tuple' object does not support item assignment
+&gt;&gt;&gt; list(x)
+[10, 20, 30]
+</code></pre>
+<h3>set</h3>
+<p>Like lists, except that order doesn't matter and repetitions are ignored.</p>
+<pre><code>&gt;&gt;&gt; s = {'a', 'p', 'p', 'e', 'a', 'l'}
+&gt;&gt;&gt; s
+{'e', 'l', 'p', 'a'}
+&gt;&gt;&gt; t = set()
+&gt;&gt;&gt; t.add('l')
+&gt;&gt;&gt; t.add('e')
+&gt;&gt;&gt; t.add('a')
+&gt;&gt;&gt; t.add('p')
+&gt;&gt;&gt; s == t
+True
+&gt;&gt;&gt; list(s)
+['e', 'l', 'p', 'a']
+</code></pre>
+<p>A set's elements are not allowed to be mutable.</p>
+<pre><code>&gt;&gt;&gt; s = {[0, 1], [2, 3]}
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: unhashable type: 'list'
+&gt;&gt;&gt; s = {(0, 1), (2, 3)}
+</code></pre>
+<h3>dict</h3>
+<p>A dict contains key-value pairs. It is defined using curly brackets.</p>
+<pre><code>&gt;&gt;&gt; capitals = {'IL': 'Springfield', 'AZ': 'Phoenix'}
+&gt;&gt;&gt; capitals['IL']
+'Springfield'
+&gt;&gt;&gt; len(capitals)
+2
+&gt;&gt;&gt; 'AZ' in capitals.keys()
+True
+</code></pre>
+<p>Modifying a dict:</p>
+<pre><code>&gt;&gt;&gt; capitals['TX'] = 'Austin'
+&gt;&gt;&gt; capitals
+{'IL': 'Springfield', 'AZ': 'Phoenix', 'TX': 'Austin'}
+&gt;&gt;&gt; capitals['IL'] = 'Urbana'
+{'IL': 'Urbana', 'AZ': 'Phoenix', 'TX': 'Austin'}
+&gt;&gt;&gt; capitals['CA']
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+KeyError: 'CA'
+&gt;&gt;&gt; del capitals['AZ']
+&gt;&gt;&gt; capitals
+{'IL': 'Urbana', 'TX': 'Austin'}
+</code></pre>
+<p>A <code>dict</code>'s keys are not allowed to be mutable.</p>
+<h2>print</h2>
+<p>When using python non-interactively, we need to use <code>print</code> to show the result.</p>
+<pre><code>&gt;&gt;&gt; x = 'hello'
+&gt;&gt;&gt; x
+'hello'
+&gt;&gt;&gt; print(x)
+hello
+&gt;&gt;&gt; print(x, 10, 'bye')
+hello 10 bye
+</code></pre>
+<h2>Control-flow</h2>
+<h3>Conditional statements</h3>
+<pre><code>&gt;&gt;&gt; x = 8
+&gt;&gt;&gt; if x &gt; 10:
+...     print('hello')
+...
+&gt;&gt;&gt; if x &lt; 9:
+...     print(x, 'is less than 9')
+... elif x &gt; 9:
+...     print(x, 'is more than 9')
+... else:
+...     print(x, 'is equal to 9')
+...
+8 is less than 9
+</code></pre>
+<h3>For loop</h3>
+<p>Used to repeat an action.</p>
+<pre><code>&gt;&gt;&gt; a = [10, 20, 30, 40]
+&gt;&gt;&gt; for x in a:
+...     print('I have', x, 'apples!')
+...
+I have 10 apples!
+I have 20 apples!
+I have 30 apples!
+I have 40 apples!
+&gt;&gt;&gt; for i in range(3, 6):
+...     a.append(i * 1000)
+...
+&gt;&gt;&gt; a
+[10, 20, 30, 40, 3000, 4000, 5000]
+</code></pre>
+<pre><code>&gt;&gt;&gt; capitals = {'IL': 'Springfield', 'AZ': 'Phoenix'}
+&gt;&gt;&gt; for state, city in capitals.items():
+...     print('The capital of', state, 'is', city)
+...
+The capital of IL is Springfield
+The capital of AZ is Phoenix
+&gt;&gt;&gt; for state in capitals.keys():
+...     print('The capital of', state, 'is', capitals[state])
+...
+The capital of IL is Springfield
+The capital of AZ is Phoenix
+&gt;&gt;&gt; for state in sorted(capitals.keys()):
+...     print('The capital of', state, 'is', capitals[state])
+...
+The capital of AZ is Phoenix
+The capital of IL is Springfield
+</code></pre>
+<h3>while loop</h3>
+<p>Keeps running till a condition is satisfied.</p>
+<pre><code>i = 5
+while i &gt; 0:
+    print(i)
+    i -= 1
+</code></pre>
+<p>Output:</p>
+<pre><code>5
+4
+3
+2
+1
+</code></pre>
+<pre><code>x = 0
+while True:
+    x += 1
+</code></pre>
+<h2>Functions, Classes, Modules</h2>
+<p>We pass 'parameters' to a function, and it 'returns' a value.</p>
+<pre><code>&gt;&gt;&gt; def f(x, y):
+...     s = x + y
+...     d = x - y
+...     return s * d
+...
+&gt;&gt;&gt; f(4, 2)
+12
+&gt;&gt;&gt; f(y=2, x=4)
+12
+</code></pre>
+<p>Python already has many useful functions (called built-in functions).
+We have already seen some: <code>len</code>, <code>sum</code>, <code>print</code>.</p>
+<p>We have seen many types of objects so far: <code>int</code>, <code>str</code>, <code>list</code>, <code>dict</code>.
+It's also possible to define your own type, a.k.a. <code>class</code>.
+This is beyond the scope of this document.</p>
+<p>A module is a group of functions, variables, and classes.
+We need to import a module to use it.</p>
+<pre><code>&gt;&gt;&gt; import math
+&gt;&gt;&gt; math.pi
+3.141592653589793
+&gt;&gt;&gt; math.sin(math.pi / 6)
+0.49999999999999994
+</code></pre>
+<p>The set of modules that are part of python (like <code>math</code>) is called the 'standard library'.
+To learn more about python's built-in functions and python's standard library,
+you can look up the documentation: <a href="https://docs.python.org/3/">https://docs.python.org/3/</a>.</p>
+<p>You can view the documentation for any function, class, or module in the interactive shell using <code>help</code>:</p>
+<pre><code>&gt;&gt;&gt; help(math.sin)
+&gt;&gt;&gt; help(sum)
+</code></pre>
+<p>You can also write your own modules. That's beyond the scope of this lab.
+Other people have written useful modules and made them available on the internet for us to use.
+A group of related modules is called a package.</p>
+<h2>Running scripts</h2>
+<p>(Demonstrate example.py)</p>
+<p>In the interactive shell, you need to enter and run your code line-by-line.
+Instead, you can write all your code in a file (called a script), and then run the file.
+Advantage: you can run the file as many times as you want
+without having to type each line of your code again in the interactive shell.</p>
+<h2>strings</h2>
+<p>Strings are not considered containers, but they behave a bit like tuples of their characters.</p>
+<pre><code>&gt;&gt;&gt; s = 'hello'
+&gt;&gt;&gt; s[2]
+'l'
+&gt;&gt;&gt; s[-1]
+'o'
+&gt;&gt;&gt; list(s)
+['h', 'e', 'l', 'l', 'o']
+</code></pre>
+<p>There is a difference between numbers and their string representations.</p>
+<pre><code>&gt;&gt;&gt; str(123)
+'123'
+&gt;&gt;&gt; int('123')
+123
+&gt;&gt;&gt; float('2.5')
+2.5
+</code></pre>
+<p><code>'\n'</code> is a single character, and means 'new line'.</p>
+<pre><code>&gt;&gt;&gt; print('hello\nworld')
+hello
+world
+</code></pre>
+<p>Splitting and joining strings:</p>
+<pre><code>&gt;&gt;&gt; 'abc,def,ghi'.split(',')
+['abc', 'def', 'ghi']
+&gt;&gt;&gt; ' '.join(['This', 'is', 'a', 'sentence.'])
+'This is a sentence.'
+</code></pre>
+<h2>Reading and writing files</h2>
+<p>Reading a file:</p>
+<pre><code>with open('file.txt') as fobj:
+    s = fobj.read()
+print(s)
+</code></pre>
+<p>Writing content to a file:</p>
+<pre><code>with open('file.txt', 'w') as fobj:
+    fobj.write(s)
+</code></pre>
+<p>Alternatively,</p>
+<pre><code>with open('file.txt', 'w') as fobj:
+    print(s, file=fobj)
+</code></pre>
+<p>Difference: <code>fobj.write</code> takes a single string as input, <code>print</code> can take multiple arguments.
+<code>print</code> appends a newline to its output. <code>fobj.write</code> doesn't.</p>
+<h2>Exercise</h2>
+<p>For any positive integer <code>x</code>, let <code>digitSum(x)</code> be the sum of its digits.
+If we repeatedly replace <code>x</code> by <code>digitSum(x)</code> till we get a single-digit number,
+the result is called <code>digitRoot(x)</code>.
+For example, <code>digitRoot(9776) = 2</code>, since <code>9776 → 29 → 11 → 2</code>.</p>
+<p>Among all 4-digit numbers (i.e., numbers from 1000 to 9999), what are the frequencies of different <code>digitRoot</code>s?
+I.e., for each number <code>i</code> from 1 to 9, how many 4-digit numbers are there whose <code>digitRoot</code> is <code>i</code>?</p>
+</body>
+</html>
